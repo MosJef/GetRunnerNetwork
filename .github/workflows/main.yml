@@ -1,0 +1,29 @@
+name: Echo Runner IP
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  echo_ip_address:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Get Runner Public IP Address
+      run: |
+        # Use a service like ifconfig.me to get the public IP address
+        RUNNER_PUBLIC_IP=$(curl -s ifconfig.me/ip)
+        echo "Runner Public IP Address: $RUNNER_PUBLIC_IP"
+
+    - name: Get Runner Local IP Address
+      run: |
+        # Use hostname -I to get the local IP address
+        RUNNER_LOCAL_IP=$(hostname -I | awk '{print $1}')
+        echo "Runner Local IP Address: $RUNNER_LOCAL_IP"
+
+    - name: Get Network Configuration
+      run: |
+        # Use ifconfig to get more details about the network configuration
+        ifconfig
